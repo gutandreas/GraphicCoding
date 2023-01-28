@@ -87,7 +87,7 @@ public class Graphic{
 
     }
 
-    public void saveImage(){
+    public void saveImageAsPNG(){
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 Color color = colorValues[i][j];
@@ -108,14 +108,6 @@ public class Graphic{
     }
 
 
-
-
-
-
-    public void writeout()
-    {
-
-    }
 
 }
 
