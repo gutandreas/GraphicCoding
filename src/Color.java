@@ -34,4 +34,12 @@ public class Color {
     public String toString(){
         return r + ", " + g + ", " + b;
     }
+
+    @Override
+    public boolean equals(Object o){
+        boolean rEqual = this.r == ((Color) o).getR();
+        boolean gEqual = this.g == ((Color) o).getG();
+        boolean bEqual = this.g == ((Color) o).getB();
+        return rEqual && gEqual && bEqual;
+    }
 }

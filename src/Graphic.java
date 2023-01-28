@@ -31,7 +31,76 @@ public class Graphic{
         colorValues[x][y] = color;
     }
 
+    // TODO: Methode impelementieren
+    public void fillWithColor(Color color){
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++){
+                setPixelColor(x, y, color);
+            }
+        }
 
+    }
+
+    // TODO: Methode implementieren
+    public void replaceColor(Color newColor, Color replacedColor){
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++){
+                if (colorValues[x][y].equals(replacedColor)){
+                    colorValues[x][y] = newColor;
+                }
+            }
+        }
+    }
+
+    // TODO: Methode implementieren
+    public void fillWithVerticalStripes(Color color1, Color color2, int numberOfPixels){
+        int counter = 0;
+        Color currentColor = color1;
+        for (int x = 0; x < width; x++){
+            if (counter == numberOfPixels){
+                counter = 0;
+                if (currentColor == color1){
+                    currentColor = color2;
+                }
+                else {
+                    currentColor = color1;
+                }
+            }
+
+            for (int y = 0; y < height; y++){
+                setPixelColor(x, y, currentColor);
+            }
+
+            counter++;
+        }
+    }
+
+    // TODO: Methode implementieren
+    public void fillWithHorizontalStripes(Color color1, Color color2, int numberOfPixels){
+        int counter = 0;
+        Color currentColor = color1;
+        for (int y = 0; y < height; y++){
+            if (counter == numberOfPixels){
+                counter = 0;
+                if (currentColor == color1){
+                    currentColor = color2;
+                }
+                else {
+                    currentColor = color1;
+                }
+            }
+
+            for (int x = 0; x < width; x++){
+                setPixelColor(x, y, currentColor);
+            }
+
+            counter++;
+        }
+    }
+
+
+
+    // TODO: Methode implementieren
     public void fillWithColorGradient(Color startColor, Color endColor, DIRECTION direction){
 
         int steps;
@@ -102,12 +171,7 @@ public class Graphic{
                 }
                 break;
 
-
-
-
         }
-
-
 
     }
 
@@ -123,6 +187,7 @@ public class Graphic{
         {
             File f = new File(fileName + ".png");
             ImageIO.write(img, "png", f);
+            System.out.println("Bild in der Datei " + fileName + ".png gespeichert");
 
         }
         catch(IOException e)
