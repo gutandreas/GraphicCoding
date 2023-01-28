@@ -5,7 +5,6 @@ import javax.imageio.ImageIO;
 public class Graphic{
 
 
-    private int pixelDimension = 1;
     private int width;
     private int height;
     private BufferedImage img;
@@ -16,7 +15,7 @@ public class Graphic{
     public Graphic(int width, int height, String fileName) {
         this.width = width;
         this.height = height;
-        colorValues = new Color[width*pixelDimension][height*pixelDimension];
+        colorValues = new Color[width][height];
         this.fileName = fileName;
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -29,51 +28,76 @@ public class Graphic{
     }
 
     public void setPixelColor(int x, int y, Color color){
-        System.out.println(color);
-        for (int i = 0; i < pixelDimension; i++){
-            for (int j = 0; j < pixelDimension; j++){
-                colorValues[x+i][y+j] = color;
-            }
-        }
+        colorValues[x][y] = color;
     }
 
 
     public void fillWithColorGradient(Color startColor, Color endColor, DIRECTION direction){
 
+        int steps;
+
+        if (direction == DIRECTION.UP || direction == DIRECTION.DOWN){
+            steps = height;
+        }
+        else {
+            steps = width;
+        }
+
+
         double rDifference = endColor.getR() - startColor.getR();
-        double rDifferencePerPixel = rDifference / height;
-        int rCurrent = startColor.getR();
+        double rDifferencePerPixel = rDifference / steps;
+        double rCurrent = startColor.getR();
 
         double gDifference = endColor.getG() - startColor.getG();
-        double gDifferencePerPixel = gDifference / height;
-        int gCurrent = startColor.getG();
+        double gDifferencePerPixel = gDifference / steps;
+        double gCurrent = startColor.getG();
 
         double bDifference = endColor.getB() - startColor.getB();
-        double bDifferencePerPixel = bDifference / height;
-        int bCurrent = startColor.getB();
+        double bDifferencePerPixel = bDifference / steps;
+        double bCurrent = startColor.getB();
+
 
         switch (direction){
             case DOWN:
                 for (int y = 0; y < height; y++){
-                    rCurrent = (int) (rCurrent + rDifferencePerPixel);
-                    gCurrent = (int) (gCurrent + gDifferencePerPixel);
-                    bCurrent = (int) (bCurrent + bDifferencePerPixel);
-
-                    System.out.println(rCurrent);
+                    rCurrent = rCurrent + rDifferencePerPixel;
+                    gCurrent = gCurrent + gDifferencePerPixel;
+                    bCurrent = bCurrent + bDifferencePerPixel;
                     for (int x = 0; x < width; x++){
-                        setPixelColor(x, y, new Color(rCurrent, gCurrent, bCurrent));
+                        setPixelColor(x, y, new Color((int) rCurrent, (int) gCurrent, (int) bCurrent));
                     }
                 }
                 break;
             case UP:
-                for (int y = height*pixelDimension; y > 0; y = y - pixelDimension){
-                    rCurrent = (int) (rCurrent + rDifferencePerPixel);
-                    gCurrent = (int) (gCurrent + gDifferencePerPixel);
-                    bCurrent = (int) (bCurrent + bDifferencePerPixel);
+                for (int y = height-1; y >= 0; y--){
+                    rCurrent = rCurrent + rDifferencePerPixel;
+                    gCurrent = gCurrent + gDifferencePerPixel;
+                    bCurrent = bCurrent + bDifferencePerPixel;
 
-                    System.out.println(rCurrent);
                     for (int x = 0; x < width; x++){
-                        setPixelColor(x, y, new Color(rCurrent, gCurrent, bCurrent));
+                        setPixelColor(x, y, new Color((int) rCurrent, (int) gCurrent, (int) bCurrent));
+                    }
+                }
+                break;
+            case RIGHT:
+                for (int x = 0; x < width; x++){
+                    rCurrent = rCurrent + rDifferencePerPixel;
+                    gCurrent = gCurrent + gDifferencePerPixel;
+                    bCurrent = bCurrent + bDifferencePerPixel;
+
+                    for (int y = 0; y < height; y++){
+                        setPixelColor(x, y, new Color((int) rCurrent, (int) gCurrent, (int) bCurrent));
+                    }
+                }
+                break;
+            case LEFT:
+                for (int x = width-1; x >= 0; x--){
+                    rCurrent = rCurrent + rDifferencePerPixel;
+                    gCurrent = gCurrent + gDifferencePerPixel;
+                    bCurrent = bCurrent + bDifferencePerPixel;
+
+                    for (int y = 0; y < height; y++){
+                        setPixelColor(x, y, new Color((int) rCurrent, (int) gCurrent, (int) bCurrent));
                     }
                 }
                 break;
