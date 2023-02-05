@@ -27,7 +27,7 @@ public class Graphic{
 
     }
 
-    public void setPixelColor(int x, int y, Color color){
+    private void setPixelColor(int x, int y, Color color){
         colorValues[x][y] = color;
     }
 
