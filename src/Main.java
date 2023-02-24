@@ -6,7 +6,7 @@ public class Main {
         //graphic.replaceColor(new Color(0, 100, 100), new Color(255, 0,0));
         //graphic.fillWithVerticalStripes(new Color(255, 0,0), new Color(0, 255, 0), 2);
         //graphic.fillWithHorizontalStripes(new Color(255, 0,0), new Color(0, 255, 0), 2);
-        graphic.fillWithColorGradient(new Color(0,0,0), new Color(0,0,255), DIRECTION.LEFT);
+        //graphic.fillWithColorGradient(new Color(0,0,0), new Color(0,0,255), DIRECTION.LEFT);
         graphic.saveImageAsPNG();
 
     }
